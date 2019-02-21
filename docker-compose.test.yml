@@ -1,11 +1,4 @@
 # PURPOSE: compose file for automated build tests
 sut:
   build: .
-  # command: /tests/test.sh
-  cap_add:
-    - SYS_ADMIN
-  security_opt:
-    - seccomp:unconfined
-  volumes:
-    - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    - ${PWD}/tests:/tests
+  command: /tests/test.sh

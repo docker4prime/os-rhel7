@@ -1,5 +1,5 @@
 # os-rhel7
-**os-rhel7** is a os base image based on a RHEL7 system with systemd enabled. It can be used as server image when simulating environments using docker (for examole for developing/testing ansible playbooks).
+**os-rhel7** is a os base image based on a RHEL7 system with systemd enabled. It can be used as server image when simulating environments using docker (for example for developing/testing ansible playbooks).
 
 # content
 the following programs & tools are included and enabled by default:
