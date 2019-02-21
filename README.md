@@ -25,7 +25,7 @@ the following packages have been explicitely installed:
 # usage
 
 ### example of use within a service
-see `test/docker-compose.yml` for an example compose file using this image as both **control** ans **target** servers. Please note, that those containers need to run `privileged`. So make sure to have those entries in your compose file:
+see `tests/docker-compose.yml` for an example compose file using this image as both **control** ans **target** servers. Please note, that those containers need to run `privileged`. So make sure to have those entries in your compose file:
 ```yaml
   cap_add:
     - SYS_ADMIN
@@ -33,6 +33,30 @@ see `test/docker-compose.yml` for an example compose file using this image as bo
     - seccomp:unconfined
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+```
+
+### working with the test service
+```bash
+cd tests
+#> docker-compose up -d
+Creating network "tests_default" with the default driver
+Creating server1 ... done
+Creating ansible ... done
+
+#> docker-compose ps
+ Name      Command     State   Ports
+-------------------------------------
+ansible   /sbin/init   Up      22/tcp
+server1   /sbin/init   Up      22/tcp
+
+#> docker-compose exec ansible bash
+[root@ansible /]#
+
+[root@ansible /]# ansible -i server1, all -m ping
+server1 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
 ```
 
 
