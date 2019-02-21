@@ -1,0 +1,22 @@
+# PURPOSE: goss test definitions
+
+# check file existence
+file:
+  /root/.ssh/authorized_keys:
+    exists: true
+  /root/.ssh/id_ecdsa:
+    exists: true
+  /root/.ssh/config:
+    exists: true
+
+
+# check command outputs
+command:
+  ansible --version:
+    exit-status: 0
+  bash --version:
+    exit-status: 0
+  curl --version:
+    exit-status: 0
+  git --version:
+    exit-status: 0

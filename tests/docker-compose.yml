@@ -1,0 +1,39 @@
+# PURPOSE: example compose file for use in a docker stack
+version: "3"
+
+# service definitions
+# ===================
+services:
+
+  # ansible control server
+  ansible:
+    container_name: ansible
+    hostname: ansible
+    image: os-rhel7
+    build: ..
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /opt:/opt
+      - ${PWD}:/project
+    depends_on:
+      - server1
+    environment:
+      # set runtime vars
+      PROJECT_PATH: "/project"
+      CALLED_BY: "docker"
+
+  # target server entry
+  server1:
+    container_name: server1
+    hostname: server1
+    image: os-rhel7
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
